@@ -1,11 +1,8 @@
 package Lesson1;
 
-import java.net.SocketOption;
-
 public class HomeWorkApp {
     public static void main(String[] args) {
         printThreeWords();
-        System.out.println("-------");
         checkSumSign();
         printColor();
         compareNumbers();
