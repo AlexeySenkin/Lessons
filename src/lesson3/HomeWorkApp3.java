@@ -1,5 +1,7 @@
 package lesson3;
 
+import java.util.Arrays;
+
 public class HomeWorkApp3 {
     public static void main(String[] args) {
         System.out.println("1: инвертирование массива");
@@ -13,7 +15,7 @@ public class HomeWorkApp3 {
         System.out.println("2: создание пустого челочисленного массива и заполнение массива значениями 1 2 3 4 5 6 7 8 … 100");
         int[] arr2 = new int[100];
         System.out.println("Массив:");
-        printArray(setArray(arr2));
+        printArray(GetArray(arr2));
         System.out.println();
 
         System.out.println("3: Умножение на 2 элементов массива меньшие 6");
@@ -32,6 +34,26 @@ public class HomeWorkApp3 {
         int len = 10;
         int initialValue = 7;
         printArray(createArray(len,initialValue));
+        System.out.println();
+
+        System.out.println("6: Создание одномерного массива и нахождение в нем макс и мин элемента");
+        double[] arr5 = createRandomArray(len);
+        System.out.println("Исходный массив:");
+        printArray(arr5);
+        System.out.println("Мин элемент = " + getMinArray(arr5));
+        System.out.println("Макс элемент = " + getMaxArray(arr5));
+        System.out.println();
+
+        System.out.println("7: Проверка наличия места, в котором сумма левой и правой части массива равны");
+        int[] arr6 = createIntRandomArray(len);
+        System.out.println("Исходный массив:");
+        printArray(arr6);
+        if (checkBalance(arr6)) {
+            System.out.println("В массиве есть место равенства");
+        } else {
+            System.out.println("В массиве нет места равенства");
+        }
+
 
     }
     public static void printArray(int[] arr) {
@@ -50,6 +72,22 @@ public class HomeWorkApp3 {
         }
     }
 
+    public static void printArray(double[] arr) {
+        for (double i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+
+    public static void printArray(double[][] arr) {
+        for (double[] ints : arr) {
+            for (double anInt : ints) {
+                System.out.print(anInt + " ");
+            }
+            System.out.println();
+        }
+    }
+
     public static int[] invertArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == 1) {
@@ -61,7 +99,7 @@ public class HomeWorkApp3 {
         return arr;
     }
 
-    public static int[] setArray(int[] arr) {
+    public static int[] GetArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             arr[i] = i + 1;
         }
@@ -89,9 +127,67 @@ public class HomeWorkApp3 {
    }
     public static int[] createArray(int len, int initialValue) {
         int[] result = new int[len];
-        for (int i = 0; i < result.length - 1; i++) {
-            result[i] = initialValue;
+        Arrays.fill(result, initialValue);
+        return result;
+    }
+
+    public static double getMinArray(double[] arr) {
+        double result = arr[0];
+        for (double v : arr) {
+            result = Math.min(result, v);
         }
         return result;
     }
+
+    public static double getMaxArray(double[] arr) {
+        double result = arr[0];
+        for (double v : arr) {
+            result = Math.max(result, v);
+        }
+        return result;
+    }
+
+    public static double[] createRandomArray(int len) {
+        double[] result = new double[len];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Math.round(Math.random() * 100);
+        }
+        return result;
+    }
+
+    public static int[] createIntRandomArray(int len) {
+        int[] result = new int[len];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Math.toIntExact(Math.round(Math.random() * 100));
+        }
+        return result;
+    }
+
+    public static boolean checkBalance(int[] arr) {
+        int sumL = 0;
+        int sumR = 0;
+        int[][] arrSum = new int[arr.length][2];
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < i; j++) {
+                sumL += arr[j];
+            }
+            for (int k = i; k < arr.length; k++) {
+                sumR += arr[k];
+            }
+            arrSum[i][0] = sumL;
+            arrSum[i][1] = sumR;
+            sumL = 0;
+            sumR = 0;
+        }
+        System.out.println("Суммы левой и правой части массива относительно каждого элемента:");
+        printArray(arrSum);
+        for (int[] ints : arrSum) {
+            if (ints[0] == ints[1]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
