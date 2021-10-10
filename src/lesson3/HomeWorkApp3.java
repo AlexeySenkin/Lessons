@@ -55,6 +55,17 @@ public class HomeWorkApp3 {
         } else {
             System.out.println("В массиве нет места равенства");
         }
+        System.out.println();
+
+        System.out.println("8: Смещение всех элементов массива на n позиций");
+        //int[] arr7 = createIntRandomArray(len);
+        int[] arr7 = {1,2,3,4,5,6,7,8,9,0};
+
+        System.out.println("Исходный массив:");
+        printArray(arr7);
+        System.out.println("Измененный массив:");
+        rollArray(arr7, -3);
+        System.out.println();
 
 
     }
@@ -202,25 +213,20 @@ public class HomeWorkApp3 {
         return false;
     }
 
-    public static boolean rollArray(int[] arr, int n) {
+    public static int[] rollArray(int[] arr, int n) {
         if (arr.length > 1) {
-            int[][] arrSum = new int[arr.length][2];
-            arrSum[0][0] = 0;
-            arrSum[0][1] = getSumArray(arr);
-            System.out.println("Сумма элементов массива равна " + arrSum[0][1]);
-            for (int i = 1; i < arr.length; i++) {
-                arrSum[i][0] = arrSum[i - 1][0] + arr[i - 1];
-                arrSum[i][1] = arrSum[0][1] - arrSum[i][0];
-            }
-            System.out.println("Суммы левой и правой части массива относительно каждого элемента:");
-            printArray(arrSum);
-            for (int[] ints : arrSum) {
-                if (ints[0] == ints[1]) {
-                    return true;
+            int a;
+            for (int i = 0; i <= n; i++) {
+                for (int j = 0; j < arr.length - 1; j++) {
+                    a = arr[j + 1];
+                    arr[j + 1] = arr[j];
+                    arr[j] = a;
                 }
+                printArray(arr);
             }
+
         }
-        return false;
+        return arr;
     }
 
 }
