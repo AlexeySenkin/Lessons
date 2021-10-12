@@ -14,9 +14,8 @@ public class HomeWorkApp3 {
         System.out.println();
 
         System.out.println("2: создание пустого челочисленного массива и заполнение массива значениями 1 2 3 4 5 6 7 8 … 100");
-        int[] arr2 = new int[100];
         System.out.println("Массив:");
-        printArray(GetArray(arr2));
+        printArray(GetArray());
         System.out.println();
 
         System.out.println("3: Умножение на 2 элементов массива меньшие 6");
@@ -28,8 +27,7 @@ public class HomeWorkApp3 {
         System.out.println();
 
         System.out.println("4: Заполнение диагоналей квадратного массива занчением 1");
-        int[][] arr4 = new int[7][7];
-        printArray(setDiagonalArray(arr4));
+        printArray(setDiagonalArray());
 
         System.out.println("5: Создание одномерного массива длиной len с элементоми равными initialValue");
         int len = 10;
@@ -60,11 +58,12 @@ public class HomeWorkApp3 {
         System.out.println("8: Смещение всех элементов массива на n позиций");
         //int[] arr7 = createIntRandomArray(len);
         int[] arr7 = {1,2,3,4,5,6,7,8,9,0};
-
         System.out.println("Исходный массив:");
         printArray(arr7);
         System.out.println("Измененный массив:");
-        rollArray(arr7, -3);
+        rollArray(arr7, 13);
+        System.out.println("Исходный массив:");
+        printArray(arr7);
         System.out.println();
 
 
@@ -102,41 +101,47 @@ public class HomeWorkApp3 {
     }
 
     public static int[] invertArray(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 1) {
-                arr[i] = 0;
+        int[] result = new int[arr.length];
+        System.arraycopy(arr, 0, result, 0, result.length);
+        for (int i = 0; i < result.length; i++) {
+            if (result[i] == 1) {
+                result[i] = 0;
             } else {
-                arr[i] = 1;
+                result[i] = 1;
             }
         }
-        return arr;
+        return result;
     }
 
-    public static int[] GetArray(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i + 1;
+    public static int[] GetArray() {
+        int[] result = new int[100];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = i + 1;
         }
-        return arr;
+        return result;
     }
 
     public static int[] mulArray(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] < 6) {
-                arr[i] = arr[i] * 2;
+        int[] result = new int[arr.length];
+        System.arraycopy(arr, 0, result, 0, result.length);
+        for (int i = 0; i < result.length; i++) {
+            if (result[i] < 6) {
+                result[i] = result[i] * 2;
             }
         }
-        return arr;
+        return result;
     }
 
-    public static int[][] setDiagonalArray(int[][] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[i].length; j++) {
-                if (i == j || (i + j == arr[i].length - 1)) {
-                    arr[i][j] = 1;
+    public static int[][] setDiagonalArray() {
+        int[][] result = new int[7][7];
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[i].length; j++) {
+                if (i == j || (i + j == result[i].length - 1)) {
+                    result[i][j] = 1;
                 }
             }
         }
-        return arr;
+        return result;
    }
     public static int[] createArray(int len, int initialValue) {
         int[] result = new int[len];
@@ -193,7 +198,9 @@ public class HomeWorkApp3 {
     }
 
     public static boolean checkBalance(int[] arr) {
-        if (arr.length > 1) {
+        if (arr.length == 0) {
+            return false;
+        } else {
             int[][] arrSum = new int[arr.length][2];
             arrSum[0][0] = 0;
             arrSum[0][1] = getSumArray(arr);
@@ -209,24 +216,32 @@ public class HomeWorkApp3 {
                     return true;
                 }
             }
+            return false;
         }
-        return false;
     }
 
-    public static int[] rollArray(int[] arr, int n) {
-        if (arr.length > 1) {
-            int a;
-            for (int i = 0; i <= n; i++) {
-                for (int j = 0; j < arr.length - 1; j++) {
-                    a = arr[j + 1];
-                    arr[j + 1] = arr[j];
-                    arr[j] = a;
-                }
-                printArray(arr);
-            }
 
+    public static int[] rollArray(int[] arr, int n) {
+        int[] result = new int[arr.length];
+        int countN = n;
+        System.arraycopy(arr, 0, result, 0, result.length);
+        if (result.length <= 1 || result.length == n) {
+            return result;
+        } else {
+            int a;
+            if (n > result.length) {
+                countN = n % result.length;
+            }
+            for (int i = 0; i <= countN; i++) {
+                for (int j = 0; j < result.length - 1; j++) {
+                    a = result[j + 1];
+                    result[j + 1] = result[j];
+                    result[j] = a;
+                }
+                printArray(result);
+            }
+            return result;
         }
-        return arr;
     }
 
 }
