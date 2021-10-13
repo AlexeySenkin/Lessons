@@ -27,7 +27,9 @@ public class HomeWorkApp3 {
         System.out.println();
 
         System.out.println("4: Заполнение диагоналей квадратного массива занчением 1");
-        printArray(setDiagonalArray());
+        int size = 7;
+        printArray(setDiagonalArray(size, size));
+        System.out.println();
 
         System.out.println("5: Создание одномерного массива длиной len с элементоми равными initialValue");
         int len = 10;
@@ -44,8 +46,8 @@ public class HomeWorkApp3 {
         System.out.println();
 
         System.out.println("7: Проверка наличия места, в котором сумма левой и правой части массива равны");
-        int[] arr6 = createIntRandomArray(len);
-        //int[] arr6 = {1,1,1,1,1,1,1,1,1};
+        //int[] arr6 = createIntRandomArray(len);
+        int[] arr6 = {1,1,1,1,1,1,1,1,1,1};
         System.out.println("Исходный массив:");
         printArray(arr6);
         if (checkBalance(arr6)) {
@@ -57,15 +59,17 @@ public class HomeWorkApp3 {
 
         System.out.println("8: Смещение всех элементов массива на n позиций");
         //int[] arr7 = createIntRandomArray(len);
+        int value;
         int[] arr7 = {1,2,3,4,5,6,7,8,9,0};
         System.out.println("Исходный массив:");
         printArray(arr7);
-        System.out.println("Измененный массив:");
-        rollArray(arr7, 13);
-        System.out.println("Исходный массив:");
-        printArray(arr7);
+        value = 3;
+        System.out.println("Измененный массив (сдвиг = " + value + "):");
+        printArray(rollArray(arr7, value));
+        value = -3;
+        System.out.println("Измененный массив (сдвиг = " + value + "):");
+        printArray(rollArray(arr7, value));
         System.out.println();
-
 
     }
     public static void printArray(int[] arr) {
@@ -132,8 +136,8 @@ public class HomeWorkApp3 {
         return result;
     }
 
-    public static int[][] setDiagonalArray() {
-        int[][] result = new int[7][7];
+    public static int[][] setDiagonalArray(int col, int row) {
+        int[][] result = new int[col][row];
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
                 if (i == j || (i + j == result[i].length - 1)) {
@@ -223,22 +227,30 @@ public class HomeWorkApp3 {
 
     public static int[] rollArray(int[] arr, int n) {
         int[] result = new int[arr.length];
-        int countN = n;
         System.arraycopy(arr, 0, result, 0, result.length);
         if (result.length <= 1 || result.length == n) {
             return result;
         } else {
-            int a;
-            if (n > result.length) {
-                countN = n % result.length;
-            }
-            for (int i = 0; i <= countN; i++) {
-                for (int j = 0; j < result.length - 1; j++) {
-                    a = result[j + 1];
-                    result[j + 1] = result[j];
-                    result[j] = a;
+            int value;
+            int countN = n % result.length;
+            if (countN > 0) {
+                for (int i = 0; i < countN; i++) {
+                    value = result[result.length - 1];
+                    for (int j = result.length - 1; j > 0; j--) {
+                        result[j] = result[j - 1];
+                    }
+                    result[0] = value;
+                    //printArray(result);
                 }
-                printArray(result);
+            } else {
+                for (int i = 0; i < countN * -1; i++) {
+                    value = result[0];
+                    for (int j = 0; j < result.length - 1; j++) {
+                        result[j] = result[j + 1];
+                    }
+                    result[result.length - 1] = value;
+                    //printArray(result);
+                }
             }
             return result;
         }
