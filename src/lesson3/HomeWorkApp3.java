@@ -1,6 +1,5 @@
 package lesson3;
 
-import java.lang.reflect.AccessibleObject;
 import java.util.Arrays;
 
 public class HomeWorkApp3 {
@@ -46,7 +45,6 @@ public class HomeWorkApp3 {
         System.out.println();
 
         System.out.println("7: Проверка наличия места, в котором сумма левой и правой части массива равны");
-        //int[] arr6 = createIntRandomArray(len);
         int[] arr6 = {1,1,1,1,1,1,1,1,1,1};
         System.out.println("Исходный массив:");
         printArray(arr6);
@@ -58,7 +56,6 @@ public class HomeWorkApp3 {
         System.out.println();
 
         System.out.println("8: Смещение всех элементов массива на n позиций");
-        //int[] arr7 = createIntRandomArray(len);
         int value;
         int[] arr7 = {1,2,3,4,5,6,7,8,9,0};
         System.out.println("Исходный массив:");
