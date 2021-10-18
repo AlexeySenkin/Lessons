@@ -16,7 +16,7 @@ public class TicTakToe {
     private static final char DOT_EMPTY = '•';
 
     private static final int SIZE = 5;
-    private static final int WINCOUNT = 5;
+    private static final int WINCOUNT = 4;
     private static final boolean AI_ON = true;
 
     private static Scanner scanner;
@@ -93,7 +93,7 @@ public class TicTakToe {
                     countCol = 0;
                 }
                 if (countRow == WINCOUNT || countCol == WINCOUNT) {
-                    System.out.println("col || row");
+                    //System.out.println("col || row");
                     return true;
                 }
             }
@@ -112,7 +112,7 @@ public class TicTakToe {
                 countDiagTwo = 0;
             }
             if (countDiagOne == WINCOUNT || countDiagTwo == WINCOUNT) {
-                System.out.println("diagonal");
+                //System.out.println("diagonal");
                 return true;
             }
         }
@@ -167,7 +167,7 @@ public class TicTakToe {
         int maxUserDiag = 0;
         int maxUserDotRowValue = 0;
         int maxUserDotColValue = 0;
-        int maxUserDiagValue = 0;
+//        int maxUserDiagValue = 0;
 
         if (AI_ON) {
             System.out.println("Ai ON");
@@ -193,9 +193,13 @@ public class TicTakToe {
             for (int i = 0; i < SIZE; i++) {
                 if (map[i][i] == DOT_X) {
                     userDotCountDiag[0][0]++;
+                } else if (map[i][i] == DOT_O) {
+                    userDotCountDiag[0][0] = 0;
                 }
                 if (map[i][SIZE - 1 - i] == DOT_X) {
                     userDotCountDiag[1][0]++;
+                } else if (map[i][SIZE - 1 - i] == DOT_O) {
+                    userDotCountDiag[1][0] = 0;
                 }
             }
             for (int i = 0; i < SIZE; i++) {
@@ -215,7 +219,7 @@ public class TicTakToe {
                 }
             }
 
-            if (userDotCountDiag[0][0] < userDotCountDiag[1][0]) {
+            if (userDotCountDiag[0][0] > userDotCountDiag[1][0]) {
                 maxUserDiag = 0;
             } else {
                 maxUserDiag = 1;
@@ -232,22 +236,25 @@ public class TicTakToe {
                         if (maxUserDotRowValue >= userDotCountDiag[maxUserDiag][0]) {
                             row = maxUserDotRow;
                             col = random.nextInt(SIZE);
-                        } else {
-                            //TODO блокировка по диагонали
-                            if (maxUserDiag == 0) {
-                                row = maxUserDotRow;
+                        } else if (maxUserDiag == 0) {
+                                row = random.nextInt(SIZE);
                                 col = row;
                             } else {
-
+                                row = random.nextInt(SIZE);
+                                col = SIZE - row - 1;
                             }
-                        }
+
                     } else {
                         if (maxUserDotColValue >= userDotCountDiag[maxUserDiag][0]) {
                             row = random.nextInt(SIZE);
                             col = maxUserDotCol;
-                        } else {
-                            //TODO блокировка по диагонали
-                        }
+                        } else if (maxUserDiag == 0) {
+                                row = random.nextInt(SIZE);
+                                col = row;
+                            } else {
+                                row = random.nextInt(SIZE);
+                                col = SIZE - row - 1;
+                            }
                     }
                     repeatCount++;
                 } else {
