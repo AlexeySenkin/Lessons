@@ -4,7 +4,6 @@ public abstract class Animal {
     protected final String name;
     protected final String color;
     protected final int age;
-
     protected final int maxRunDistance;
     protected final int maxSwimDistance;
 
@@ -38,16 +37,16 @@ public abstract class Animal {
     }
 
 
-    public void run(int distance) {
-        if (maxRunDistance > distance) {
+    public void printRun(int distance) {
+        if (maxRunDistance >= distance) {
             System.out.println(name + " пробежал " + distance + " м");
         } else {
             System.out.println("Дистанция " + distance + " м для " + name + " больше ограничения");
         }
     }
 
-    public void swim(int distance) {
-        if (maxSwimDistance > distance) {
+    public void printSwim(int distance) {
+        if (maxSwimDistance >= distance) {
             System.out.println(name + " проплыл " + distance + " м");
         } else {
             System.out.println("Дистанция " + distance + " м для " + name + " больше ограничения");

@@ -16,12 +16,12 @@ public final class Dog extends Animal {
     @Override
     public String toString() {
         return "Собака {" +
-                "кличка='" + name + '\'' +
-                ", цвет='" + color + '\'' +
-                ", возраст=" + age +
-                ", ограничение на бег=" + maxRunDistance +
-                ", ограничение на плавание=" + maxSwimDistance +
-                ", порода='" + type + '\'' +
+                "кличка '" + name + '\'' +
+                ", цвет '" + color + '\'' +
+                ", возраст " + age +
+                ", может пробежать " + maxRunDistance + " м " +
+                ", может проплыть " + maxSwimDistance + " м " +
+                ", порода '" + type + '\'' +
                 '}';
     }
 }

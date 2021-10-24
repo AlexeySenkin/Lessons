@@ -9,10 +9,10 @@ public final class Cat extends Animal {
     @Override
     public String toString() {
         return "Кот {" +
-                "кличка='" + name + '\'' +
-                ", окрас='" + color + '\'' +
-                ", возраст=" + age +
-                ", ограничение на бег=" + maxRunDistance +
+                "кличка '" + name + '\'' +
+                ", окрас '" + color + '\'' +
+                ", возраст " + age +
+                ", может пробежать " + maxRunDistance + " м " +
                 ", не умеет плавать" +
                 '}';
     }
