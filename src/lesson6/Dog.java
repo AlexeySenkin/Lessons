@@ -4,9 +4,8 @@ public final class Dog extends Animal {
 
     private final String type;
 
-
     public Dog(String name, String color, int age, String type) {
-        super(name,color,age);
+        super(name,color,age,500,10);
         this.type = type;
     }
 
@@ -16,11 +15,13 @@ public final class Dog extends Animal {
 
     @Override
     public String toString() {
-        return "Dog{" +
-                "name='" + name + '\'' +
-                ", color='" + color + '\'' +
-                ", age=" + age +
-                ", type='" + type + '\'' +
+        return "Собака {" +
+                "кличка='" + name + '\'' +
+                ", цвет='" + color + '\'' +
+                ", возраст=" + age +
+                ", ограничение на бег=" + maxRunDistance +
+                ", ограничение на плавание=" + maxSwimDistance +
+                ", порода='" + type + '\'' +
                 '}';
     }
 }

@@ -5,14 +5,19 @@ public abstract class Animal {
     protected final String color;
     protected final int age;
 
-    public Animal(String name, String color, int age) {
+    protected final int maxRunDistance;
+    protected final int maxSwimDistance;
+
+    public Animal(String name, String color, int age,int maxRunDistance,int maxSwimDistance) {
        this.name = name;
        this.color = color;
        this.age = age;
+       this.maxRunDistance = maxRunDistance;
+       this.maxSwimDistance = maxSwimDistance;
    }
 
     public Animal() {
-        this(null,null,0);
+        this(null,null,0,0,0);
     }
 
 
@@ -34,11 +39,19 @@ public abstract class Animal {
 
 
     public void run(int distance) {
-        System.out.println(name + " пробежал " + distance + " м");
+        if (maxRunDistance > distance) {
+            System.out.println(name + " пробежал " + distance + " м");
+        } else {
+            System.out.println("Дистанция " + distance + " м для " + name + " больше ограничения");
+        }
     }
 
     public void swim(int distance) {
-        System.out.println(name + " проплыл " + distance + " м");
+        if (maxSwimDistance > distance) {
+            System.out.println(name + " проплыл " + distance + " м");
+        } else {
+            System.out.println("Дистанция " + distance + " м для " + name + " больше ограничения");
+        }
     }
 
 }
