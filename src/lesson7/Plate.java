@@ -7,6 +7,8 @@ public class Plate {
         this.volume = volume;
     }
 
+
+
     public int getVolume() {
         return volume;
     }
@@ -15,10 +17,14 @@ public class Plate {
         this.volume = volume;
     }
 
+    public void addFood(int foodValue) {
+        volume = volume + foodValue;
+    }
+
     @Override
     public String toString() {
         return "Plate{" +
-                "volum=" + volume +
+                "volume=" + volume +
                 '}';
     }
 }
