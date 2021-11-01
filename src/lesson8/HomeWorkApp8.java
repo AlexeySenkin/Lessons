@@ -4,9 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class HomeWorkApp8 {
     private static int counter = 0;
+    private static int step = 1;
     private static JLabel counterValueView;
     private static JTextField counterValueStep;
 
@@ -85,8 +88,34 @@ public class HomeWorkApp8 {
         counterValueStep.setFont(font);
         maiJFrame.add(counterValueStep,BorderLayout.NORTH);
 
+        counterValueStep.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                try {
+                    step = Integer.parseInt(counterValueStep.getText());
+                }
+                catch(NumberFormatException nfe) {
+                    counterValueStep.setText(String.valueOf(step));
+                }
 
+            }
+        });
+
+        counterValueStep.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    step = Integer.parseInt(counterValueStep.getText());
+                }
+                catch(NumberFormatException nfe) {
+                    counterValueStep.setText(String.valueOf(step));
+                }
+            }
+        }
+        );
     }
+
 }
 
 
