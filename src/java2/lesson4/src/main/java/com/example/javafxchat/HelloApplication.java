@@ -22,7 +22,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
 
         HelloController controller = fxmlLoader.getController();
-        controller.userList.getItems().addAll("User1","User2","User3","User4");
+        controller.userList.getItems().addAll("Пользователь1","Пользователь2","Пользователь3","Пользователь4");
         stage.show();
     }
 
