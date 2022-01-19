@@ -24,13 +24,17 @@ public class Server {
             new Thread(() -> {
                 try {
                     while (true) {
-                        String message = in.readUTF();
-                        if (message.equalsIgnoreCase("/end")) {
+                        try {
+                            String message = in.readUTF();
+                            if (message.equalsIgnoreCase("/end")) {
+                                break;
+                            }
+                            System.out.println("Сообщение от клиента: " + message);
+                            System.out.println("Введите сообщение");
+                        } catch (IOException e) {
+                            System.out.println("Соединение было закрыто");
                             break;
                         }
-                        System.out.println("Сообщение от клиента: " + message);
-                        System.out.println("Введите сообщение");
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
