@@ -39,6 +39,8 @@ public class ClientController {
             sender = userList.getSelectionModel().getSelectedItem();
         }
 
+
+
         try {
             message = sender != null ? String.join(": ", sender, message) : message;
             Network.getInstance().sendMessage(message);

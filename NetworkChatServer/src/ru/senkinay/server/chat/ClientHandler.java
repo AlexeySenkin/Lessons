@@ -8,11 +8,15 @@ import java.net.Socket;
 public class ClientHandler {
     public static final String AUTH_OK_COMMAND = "/authOk";
     public static final String AUTH_COMMAND = "/auth";
+    public static final String PRIVATE_MESSAGE_COMMAND = "/w";
+
     private MyServer server;
     private final Socket clientSocket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
-
+    private String login;
+    private String password;
+    private String userName;
 
     public ClientHandler(MyServer myServer, Socket clientSocket) {
         this.server = myServer;
@@ -38,8 +42,6 @@ public class ClientHandler {
                 }
             }
         }).start();
-
-
     }
 
     private void authenticate() throws IOException {
@@ -49,14 +51,15 @@ public class ClientHandler {
                 String[] parts = message.split(" ");
                 String login =  parts[1];
                 String password =  parts[2];
-
                 String userName = server.getAuthService().getUserNameByLoginAndPassword(login,password);
-
                 if(userName==null) {
                     sendMessage("Неверный логин и пароль");
                 } else {
                     sendMessage(String.format("%s %s",AUTH_OK_COMMAND,userName));
-                    server.subscride(this);
+                    server.subscribe(this);
+                    this.login = login;
+                    this.password = password;
+                    this.userName = userName;
                     return;
                 }
             }
@@ -77,7 +80,13 @@ public class ClientHandler {
     }
 
     private void processMessage(String message) throws IOException {
-        this.server.broadcastMessage(message, this);
+        if(message.startsWith(PRIVATE_MESSAGE_COMMAND)) {
+            this.server.messageToUser(message, this);
+        } else {
+            this.server.broadcastMessage(message, this);
+        }
+
+
     }
 
     public void sendMessage(String message) throws IOException {
@@ -85,7 +94,20 @@ public class ClientHandler {
     }
 
     private void closeConnection() throws IOException {
-        server.unsubscride(this);
+        server.unsubscribe(this);
         clientSocket.close();
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
 }
