@@ -55,16 +55,21 @@ public class HomeWorkApp1 {
         boxApple3.addToBox(new Apple(APPLE_WEIGHT));
         boxApple3.addToBox(new Apple(APPLE_WEIGHT));
 
-        System.out.println("Вес 1 коробки = " + boxOrange1.getWeight());
-        System.out.println("Вес 2 коробки = " + boxOrange2.getWeight());
-        System.out.println("Вес 3 коробки = " + boxOrange3.getWeight());
+        System.out.println("Вес 1 коробки (orange) = " + boxOrange1.getWeight());
+        System.out.println("Вес 2 коробки (orange) = " + boxOrange2.getWeight());
+        System.out.println("Вес 3 коробки (orange) = " + boxOrange3.getWeight());
 
-        System.out.println("Вес 4 коробки = " + boxApple1.getWeight());
-        System.out.println("Вес 5 коробки = " + boxApple2.getWeight());
-        System.out.println("Вес 6 коробки = " + boxApple3.getWeight());
+        System.out.println("Вес 4 коробки (apple) = " + boxApple1.getWeight());
+        System.out.println("Вес 5 коробки (apple) = " + boxApple2.getWeight());
+        System.out.println("Вес 6 коробки (apple) = " + boxApple3.getWeight());
 
-        System.out.println(boxOrange2.compare(boxOrange1));
-        System.out.println(boxOrange2.compare(boxApple3));
+        System.out.println("Результат сравнения веса коробок 1 и 2 = " + boxOrange2.compare(boxOrange1));
+        System.out.println("Результат сравнения веса коробок 2 и 6 = " + boxOrange2.compare(boxApple3));
+
+        boxOrange2.pourIntoOtherBox(boxOrange3);
+        System.out.println("Пересыпаем из 2 коробки в 3");
+        System.out.println("Вес 2 коробки после пересыпания (orange) = " + boxOrange2.getWeight());
+        System.out.println("Вес 3 коробки после пересыпания (orange) = " + boxOrange3.getWeight());
 
     }
 }

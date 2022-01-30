@@ -10,17 +10,27 @@ public class Box<F extends Fruit> {
         this.fruits = fruits;
     }
 
-    public int addToBox(F fruit) {
+    public void addToBox(F fruit) {
         this.fruits.add(fruit);
-        return this.fruits.size();
     }
 
     public float getWeight() {
-        return this.fruits.get(0).getWeight() * this.fruits.size();
+        if (this.fruits.size()==0) {
+            return 0;
+        } else {
+            return this.fruits.get(0).getWeight() * this.fruits.size();
+        }
     }
 
     public boolean compare(Box<?> box){
         return this.getWeight() == box.getWeight();
+    }
+
+    public void pourIntoOtherBox(Box<F> box){
+        for (int i = 0; i < this.fruits.size(); i++) {
+            box.addToBox(this.fruits.get(i));
+        }
+        this.fruits.clear();
     }
 
 }
