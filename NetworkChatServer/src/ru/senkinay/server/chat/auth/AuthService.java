@@ -5,10 +5,10 @@ import java.util.Set;
 public class AuthService {
 
     private static Set<User> USERS = Set.of(
-      new User("login1","pass1","userName1"),
-      new User("login2","pass2","userName2"),
-      new User("login3","pass3","userName3"),
-      new User("login4","pass4","userName4")
+      new User("login1","pass1","username1"),
+      new User("login2","pass2","username2"),
+      new User("login3","pass3","username3"),
+      new User("login4","pass4","username4")
     );
 
 
