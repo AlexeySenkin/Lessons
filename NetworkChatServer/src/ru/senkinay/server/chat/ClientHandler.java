@@ -8,6 +8,7 @@ import ru.senkinay.clientserver.commands.PublicMessageCommandData;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class ClientHandler {
@@ -51,27 +52,31 @@ public class ClientHandler {
     }
 
     private void authenticate() throws IOException {
-
-//        TimerTask timerTask = new TimerTask() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }
-
-
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                String userName = server.getAuthService().getUserNameByLoginAndPassword(login,password);
+                if(userName == null) {
+                    try {
+                        System.err.println("Время авторизации истекло");
+                        closeConnection();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        timer.schedule(timerTask, 120000);
         while (true) {
             Command command = readCommand();
-
             if (command == null) {
                 continue;
             }
-
             if (command.getType() == CommandType.AUTH) {
                 AuthCommandData data = (AuthCommandData) command.getData();
                 String login = data.getLogin();
                 String password = data.getPassword();
-
                 String userName = server.getAuthService().getUserNameByLoginAndPassword(login,password);
                 if(userName == null) {
                     sendCommand(Command.errorCommand("Неверный логин и пароль"));
@@ -86,7 +91,6 @@ public class ClientHandler {
                     return;
                 }
             }
-
         }
     }
 
