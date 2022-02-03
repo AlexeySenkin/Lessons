@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.sql.*;
 
+
 public class AuthService {
     public static final String PATH_DB = "jdbc:sqlite:/Volumes/Macintosh HD — том D/JAVA/Lessons/Lessons/NetworkChatServer/src/main/java/ru/senkinay/server/chat/auth/networkchat.db";
     private Set<User> USERS;
