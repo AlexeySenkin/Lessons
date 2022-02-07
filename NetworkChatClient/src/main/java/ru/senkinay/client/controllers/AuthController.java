@@ -64,6 +64,7 @@ public class AuthController {
                 if (command.getType() == CommandType.AUTH_OK) {
                     AuthOkCommandData data = (AuthOkCommandData) command.getData();
                     String userName = data.getUsername();
+                    Network.getInstance().setUserName(userName);
                     Platform.runLater(()-> {
                         ClientChat.INSTANCE.switchToMainCharWindow(userName);
                     });
@@ -74,7 +75,7 @@ public class AuthController {
                         Dialogs.AuthError.INVALID_CREDENTIAL.show(errorMessage);
                     });
                 }
-            };
+            }
         });
     }
 
