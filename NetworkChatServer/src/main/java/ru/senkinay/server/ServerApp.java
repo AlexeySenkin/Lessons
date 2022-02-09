@@ -2,6 +2,7 @@ package ru.senkinay.server;
 
 import ru.senkinay.server.chat.MyServer;
 
+
 public class ServerApp {
     private static final int DEFAULT_PORT = 8189;
 
