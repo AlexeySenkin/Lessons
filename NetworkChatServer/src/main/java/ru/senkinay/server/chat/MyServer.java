@@ -12,6 +12,7 @@ import java.util.List;
 
 public class MyServer {
 
+
     private final List<ClientHandler> clients = new ArrayList<>();
 
     private AuthService authService;
