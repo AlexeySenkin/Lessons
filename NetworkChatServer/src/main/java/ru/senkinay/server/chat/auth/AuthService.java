@@ -6,7 +6,8 @@ import java.sql.*;
 
 
 public class AuthService {
-    public static final String PATH_DB = "jdbc:sqlite:/Volumes/Macintosh HD — том D/JAVA/Lessons/Lessons/NetworkChatServer/src/main/java/ru/senkinay/server/chat/auth/networkchat.db";
+//    public static final String PATH_DB = "jdbc:sqlite:/Volumes/Macintosh HD — том D/JAVA/Lessons/Lessons/NetworkChatServer/src/main/java/ru/senkinay/server/chat/auth/networkchat.db";
+    public static final String PATH_DB = "jdbc:sqlite:networkchat.db";
     private Set<User> USERS;
     private Connection connection;
     private Statement statement;

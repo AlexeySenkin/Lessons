@@ -9,11 +9,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MyServer {
 
 
     private final List<ClientHandler> clients = new ArrayList<>();
+
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     private AuthService authService;
 
@@ -29,12 +33,30 @@ public class MyServer {
         }
     }
 
+    public  void stop() {
+      executorService.shutdown();
+    }
+
     private void waitAndProcessClientConnection(ServerSocket serverSocket) throws IOException {
         System.out.println("Waiting for new client connection");
         Socket clientSocket = serverSocket.accept();
         System.out.println("Client has been connected");
         ClientHandler clientHandler = new ClientHandler(this, clientSocket);
-        clientHandler.handle();
+        executorService.execute(()->{
+            try {
+                clientHandler.handle();
+            } catch (IOException e) {
+                System.err.println("Failed client thread");
+                e.printStackTrace();
+            } finally {
+                try {
+                    clientHandler.closeConnection();
+                } catch (IOException e) {
+                    System.err.println("Failed to close connection");
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public synchronized void broadcastMessage(String message, ClientHandler sender) throws IOException {

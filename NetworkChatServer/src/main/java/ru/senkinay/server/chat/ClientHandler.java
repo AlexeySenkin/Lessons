@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 public class ClientHandler {
 //    public static final String PRIVATE_MESSAGE_COMMAND = "/w";
 
@@ -30,25 +31,26 @@ public class ClientHandler {
     }
 
     public void handle() throws IOException {
-
         inputStream  = new ObjectInputStream(clientSocket.getInputStream());
         outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
-
-        new Thread(() -> {
-            try {
-                authenticate();
-                readMessage();
-            } catch (IOException e) {
-                System.err.println("Failed to process message from client");
-                e.printStackTrace();
-            } finally {
-                try {
-                    closeConnection();
-                } catch (IOException e) {
-                    System.err.println("Failed to close connection");
-                }
-            }
-        }).start();
+        authenticate();
+        readMessage();
+        closeConnection();
+//        new Thread(() -> {
+//            try {
+//                authenticate();
+//                readMessage();
+//            } catch (IOException e) {
+//                System.err.println("Failed to process message from client");
+//                e.printStackTrace();
+//            } finally {
+//                try {
+//                    closeConnection();
+//                } catch (IOException e) {
+//                    System.err.println("Failed to close connection");
+//                }
+//            }
+//        }).start();
     }
 
     private void authenticate() throws IOException {
@@ -152,7 +154,7 @@ public class ClientHandler {
 
 
 
-    private void closeConnection() throws IOException {
+    public void closeConnection() throws IOException {
         server.unsubscribe(this);
         clientSocket.close();
     }
