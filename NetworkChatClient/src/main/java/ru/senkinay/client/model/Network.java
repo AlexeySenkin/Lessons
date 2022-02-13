@@ -14,8 +14,8 @@ public class Network {
     public static final int SERVER_PORT = 8189;
     public static final String SERVER_HOST = "localhost";
 
-    private int port;
-    private String host;
+    private final int port;
+    private final String host;
     private Socket socket;
     private ObjectInputStream socketInput;
     private ObjectOutputStream socketOutput;
@@ -25,6 +25,8 @@ public class Network {
     private Thread readMessageProcess;
 
     private boolean connected;
+
+    private String userName;
 
     public static Network getInstance() {
         if (INSTANCE == null) {
@@ -141,5 +143,11 @@ public class Network {
         return connected;
     }
 
+    public String getUserName() {
+        return userName;
+    }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }
