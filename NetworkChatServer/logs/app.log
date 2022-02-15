@@ -1,0 +1,17 @@
+INFO  2022-02-15 21:40:59.972 [main] ru.senkinay.server.chat.MyServer (MyServer.java:31) - Server has been started
+INFO  2022-02-15 21:41:00.229 [main] ru.senkinay.server.chat.MyServer (MyServer.java:49) - Waiting for new client connection
+INFO  2022-02-15 21:41:55.012 [main] ru.senkinay.server.chat.MyServer (MyServer.java:31) - Server has been started
+INFO  2022-02-15 21:41:55.331 [main] ru.senkinay.server.chat.MyServer (MyServer.java:49) - Waiting for new client connection
+INFO  2022-02-15 21:42:12.994 [main] ru.senkinay.server.chat.MyServer (MyServer.java:52) - Client has been connected
+INFO  2022-02-15 21:42:12.996 [main] ru.senkinay.server.chat.MyServer (MyServer.java:49) - Waiting for new client connection
+INFO  2022-02-15 21:42:29.254 [pool-2-thread-1] ru.senkinay.server.chat.ClientHandler (ClientHandler.java:153) - PUBLIC_MESSAGE
+INFO  2022-02-15 21:42:29.255 [pool-2-thread-1] ru.senkinay.server.chat.ClientHandler (ClientHandler.java:154) - message=1111
+INFO  2022-02-15 21:42:54.438 [main] ru.senkinay.server.chat.MyServer (MyServer.java:52) - Client has been connected
+INFO  2022-02-15 21:42:54.439 [main] ru.senkinay.server.chat.MyServer (MyServer.java:49) - Waiting for new client connection
+INFO  2022-02-15 21:43:12.182 [pool-2-thread-2] ru.senkinay.server.chat.ClientHandler (ClientHandler.java:142) - PRIVATE_MESSAGE
+INFO  2022-02-15 21:43:12.183 [pool-2-thread-2] ru.senkinay.server.chat.ClientHandler (ClientHandler.java:143) - username=senkin
+INFO  2022-02-15 21:43:12.183 [pool-2-thread-2] ru.senkinay.server.chat.ClientHandler (ClientHandler.java:144) - message=Привет
+ERROR 2022-02-15 21:46:25.158 [pool-2-thread-2] ru.senkinay.server.chat.MyServer (MyServer.java:59) - Failed client thread
+ERROR 2022-02-15 21:46:26.789 [pool-2-thread-1] ru.senkinay.server.chat.MyServer (MyServer.java:59) - Failed client thread
+INFO  2022-02-15 21:47:28.535 [main] ru.senkinay.server.chat.MyServer (MyServer.java:31) - Server has been started
+INFO  2022-02-15 21:47:28.862 [main] ru.senkinay.server.chat.MyServer (MyServer.java:49) - Waiting for new client connection

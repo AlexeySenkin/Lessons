@@ -1,10 +1,13 @@
 package ru.senkinay.server.chat;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.senkinay.clientserver.Command;
 import ru.senkinay.clientserver.CommandType;
 import ru.senkinay.clientserver.commands.AuthCommandData;
 import ru.senkinay.clientserver.commands.PrivateMessageCommandData;
 import ru.senkinay.clientserver.commands.PublicMessageCommandData;
+import ru.senkinay.server.chat.auth.AuthService;
 
 import java.io.*;
 import java.net.Socket;
@@ -24,6 +27,8 @@ public class ClientHandler {
     private String login;
     private String password;
     private String userName;
+
+    private static final Logger LOGGER = LogManager.getLogger(AuthService.class);
 
     public ClientHandler(MyServer myServer, Socket clientSocket) {
         this.server = myServer;
@@ -61,7 +66,8 @@ public class ClientHandler {
                 String userName = server.getAuthService().getUserNameByLoginAndPassword(login,password);
                 if(userName == null) {
                     try {
-                        System.err.println("Время авторизации истекло");
+                        //System.err.println("Время авторизации истекло");
+                        LOGGER.info("Время авторизации истекло");
                         closeConnection();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -82,8 +88,10 @@ public class ClientHandler {
                 String userName = server.getAuthService().getUserNameByLoginAndPassword(login,password);
                 if(userName == null) {
                     sendCommand(Command.errorCommand("Неверный логин и пароль"));
+                    LOGGER.info("Неверный логин и пароль");
                 } else if (server.isUserNameBusy(userName)) {
                     sendCommand(Command.errorCommand("Пользователь с таким логином и паролем уже существует"));
+                    LOGGER.info("Пользователь с таким логином и паролем уже существует");
                 } else {
                     sendCommand(Command.authOkCommand(userName));
                     this.login = login;
@@ -105,7 +113,8 @@ public class ClientHandler {
         try {
             command = (Command) inputStream.readObject();
         } catch (ClassNotFoundException e) {
-            System.err.println("Failed to read class command");
+            //System.err.println("dFailed to read class comman");
+            LOGGER.error("Failed to read class command");
             e.printStackTrace();
         }
         return command;
@@ -127,16 +136,22 @@ public class ClientHandler {
                   String recipient = data.getReceiver();
                   String privateMessage = data.getMessage();
                   this.server.sendPrivateMessage(this,recipient,privateMessage);
-                  System.err.println("PRIVATE_MESSAGE");
-                  System.err.println("username=" + recipient);
-                  System.err.println("message=" + data.getMessage());
+                  //System.err.println("PRIVATE_MESSAGE");
+                  //System.err.println("username=" + recipient);
+                  //System.err.println("message=" + data.getMessage());
+                  LOGGER.info("PRIVATE_MESSAGE");
+                  LOGGER.info("username=" + recipient);
+                  LOGGER.info("message=" + data.getMessage());
+
                   break;
               }
               case PUBLIC_MESSAGE: {
                   PublicMessageCommandData data = (PublicMessageCommandData) command.getData();
                   this.server.broadcastMessage(data.getMessage(), this);
-                  System.err.println("PUBLIC_MESSAGE");
-                  System.out.println("message=" + data.getMessage());
+                  //System.err.println("PUBLIC_MESSAGE");
+                  //System.out.println("message=" + data.getMessage());
+                  LOGGER.info("PUBLIC_MESSAGE");
+                  LOGGER.info("message=" + data.getMessage());
                   break;
               }
           }
