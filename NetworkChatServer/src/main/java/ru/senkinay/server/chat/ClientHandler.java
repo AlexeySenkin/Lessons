@@ -139,9 +139,9 @@ public class ClientHandler {
                   //System.err.println("PRIVATE_MESSAGE");
                   //System.err.println("username=" + recipient);
                   //System.err.println("message=" + data.getMessage());
-                  LOGGER.info("PRIVATE_MESSAGE");
-                  LOGGER.info("username=" + recipient);
-                  LOGGER.info("message=" + data.getMessage());
+                  LOGGER.warn("PRIVATE_MESSAGE");
+                  LOGGER.warn("username=" + recipient);
+                  LOGGER.warn("message=" + data.getMessage());
 
                   break;
               }
@@ -150,8 +150,8 @@ public class ClientHandler {
                   this.server.broadcastMessage(data.getMessage(), this);
                   //System.err.println("PUBLIC_MESSAGE");
                   //System.out.println("message=" + data.getMessage());
-                  LOGGER.info("PUBLIC_MESSAGE");
-                  LOGGER.info("message=" + data.getMessage());
+                  LOGGER.warn("PUBLIC_MESSAGE");
+                  LOGGER.warn("message=" + data.getMessage());
                   break;
               }
           }
