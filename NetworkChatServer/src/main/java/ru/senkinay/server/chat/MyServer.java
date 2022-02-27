@@ -1,5 +1,7 @@
 package ru.senkinay.server.chat;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.senkinay.clientserver.Command;
 import ru.senkinay.server.chat.auth.AuthService;
 
@@ -21,15 +23,20 @@ public class MyServer {
 
     private AuthService authService;
 
+    private static final Logger LOGGER = LogManager.getLogger(AuthService.class);
+
     public void start(int port) {
         try(ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Server has been started");
+            //System.out.println("Server has been started");
+            LOGGER.info("Server has been started");
             authService = new AuthService();
             while (true) {
                 waitAndProcessClientConnection(serverSocket);
             }
         } catch (IOException e) {
-            System.err.println("Failed to bind port");
+            //System.err.println("Failed to bind port");
+            LOGGER.error("Failed to bind port");
+
         }
     }
 
@@ -38,21 +45,25 @@ public class MyServer {
     }
 
     private void waitAndProcessClientConnection(ServerSocket serverSocket) throws IOException {
-        System.out.println("Waiting for new client connection");
+        //System.out.println("Waiting for new client connection");
+        LOGGER.info("Waiting for new client connection");
         Socket clientSocket = serverSocket.accept();
-        System.out.println("Client has been connected");
+        //System.out.println("Client has been connected");
+        LOGGER.info("Client has been connected");
         ClientHandler clientHandler = new ClientHandler(this, clientSocket);
         executorService.execute(()->{
             try {
                 clientHandler.handle();
             } catch (IOException e) {
-                System.err.println("Failed client thread");
+                //System.err.println("Failed client thread");
+                LOGGER.error("Failed client thread");
                 e.printStackTrace();
             } finally {
                 try {
                     clientHandler.closeConnection();
                 } catch (IOException e) {
-                    System.err.println("Failed to close connection");
+                    //System.err.println("Failed to close connection");
+                    LOGGER.error("Failed to close connection");
                     e.printStackTrace();
                 }
             }
@@ -70,8 +81,8 @@ public class MyServer {
     public synchronized void sendPrivateMessage(ClientHandler sender, String recipient, String privateMessage) throws IOException {
         for (ClientHandler client : clients) {
             if (client != sender && client.getUserName().equals(recipient)) {
-                System.err.println("sender=" + sender.getUserName());
-                System.err.println("recipient=" + recipient);
+                //System.err.println("sender=" + sender.getUserName());
+                //System.err.println("recipient=" + recipient);
                 client.sendCommand(Command.clientMessageCommand(sender.getUserName(),privateMessage));
                 break;
             }
